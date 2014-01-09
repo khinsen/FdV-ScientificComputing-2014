@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+       }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# The Lab Notebook of the Digital Age
+
+Konrad Hinsen
+
+Centre de Biophysique Moléculaire, Orléans, France
+
+Synchrotron SOLEIL, Saint Aubin, France
+
+---
+
+# Once upon a time...
+
+Scientists did _experiments_ using simple instruments.
+
+They _wrote down_ what they did, and what they observed,
+in their _lab notebook_.
+
+They did this to keep a _record_ of everything they did, because it's
+impossible to memorize all the details.
+
+They also used their lab notebooks as evidence that they had actually
+done the work they described in their papers.
+
+---
+
+background-image: url(./images/AGBell_Notebook.jpg)
+
+# Alexander Graham Bell, 1876
+
+.footnote[Image from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:AGBell_Notebook.jpg]]
+
+---
+
+background-image: url(./images/Lab_notebook_Otto_Hahn.jpg)
+
+# Otto Hahn, 1938
+
+.footnote[Image from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Otto_Hahn%27s_notebook_1938_-_Deutsches_Museum_-_Munich.jpg)]
+
+---
+
+# Science in the digital age
+
+Traditional lab notebooks are still in use, and often the most convenient choice.
+
+But more and more experiments are controlled by computers, and their results are collected by computers.
+
+Data analysis is almost always done on computers.
+
+Theoreticians run simulations, entirely in their computers.
+
+We need to have the lab notebook in the computer!
+
+---
+
+# The electronic lab notebook
+
+Tasks:
+
+ - Create a log of all research activities
+ - Keep track of changes to data and software
+ - Data sharing among collaborators
+ - [Open Science](https://en.wikipedia.org/wiki/Open_science): doing research in public
+
+---
+
+# Your data from a computer's point of view
+
+ - All data is stored in _files_.
+ - Files are organized in _directories_ / _folders_.
+ - A file contains a sequence of _bytes_, i.e. numbers in the range 0-255.
+ - All data must be _encoded_ as a sequence of bytes.
+ - There are many ways to do this: lots of _file formats_.
+
+---
+
+# The big divide: text vs. binary
+
+## Text formats
+
+ - First, encode your data as human-readable text.
+ - Then, encode text as numbers.
+ - There's general agreement about the second step: [Unicode](https://en.wikipedia.org/wiki/Unicode)
+ - But lots of way to encode data as text.
+
+
+## Binary formats
+
+ - Everything that's not on the left.
+ - Includes Word, Open Office, RTF, ... which are not _just_ text.
+ - Use problem-specific data encoding.
+ - Often optimized for a specific purpose.
+
+---
+
+# Pros and cons
+
+## Why use text formats?
+
+ - **Lots** of software tools can handle text.
+ - Straightforward inspection "by eye".
+ - Relatively easy to write your own specialized tools.
+
+## Why use binary formats?
+
+ - Efficiency: smaller files, faster processing
+
+---
+
+# Open vs. proprietary formats
+
+## Open formats
+
+ - Documented: there is a written definition of the data encoding meant
+   for human readers.
+ - Used by different software packages
+
+## Proprietary formats
+
+ - Used by one or a few software packages
+ - No documentation
+ - Usually binary, to make reverse-engineering difficult
+
+## Grey zone
+
+ - Formats used by open-source software but not documented except in
+   the source code: hard to use in practice.
+ - Highly complex binary formats, theoretically documented but
+   in practice unusable by anyone except the inventor (Microsoft Word, ...)
+
+---
+
+# File formats for the electronic lab notebook
+
+**_Remember: data is at the core of science_**
+
+## Avoid proprietary formats
+
+ - Your software controls your data, not you.
+ - One day the software will disappear - and your data along with it.
+ - You can't share data with people who use different software.
+ - You can't write your own software to handle your data.
+
+## Prefer text formats
+
+  - Lots of useful tools.
+  - Easier to handle for everyone.
+
+---
+
+# Tools for text files
+
+ - Usually created by software developers for software developers
+ - Often powerful but not user-friendly
+ - Most are designed to be used from a terminal
+
+This style of working may look archaic and certainly requires
+some learning effort. Trust me, it will pay off!
+
+
+    </textarea>
+    <script src="file:///Users/hinsen/js/remark/remark.min.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
