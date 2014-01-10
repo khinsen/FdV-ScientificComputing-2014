@@ -4,6 +4,43 @@
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style type="text/css">
+      @import url(http://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+        margin-top: 10px;
+      }
+      h1 { font-size: 2.8em; }
+      h2 { font-size: 2em; }
+      h3 { font-size: 1.6em; }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+
+      pre {
+        border-left: 0.4em solid #d7d7d7;
+        padding: 1em !important;
+      }
+      code {
+        background: transparent !important;
+      }
+      .right {
+        float: right;
+        margin-left: 1em;
+      }
+      .pushdown {
+        margin-top: 12em;
+      }
       .footnote {
         position: absolute;
         bottom: 3em;
@@ -13,11 +50,11 @@
   <body>
     <textarea id="source">
 
-class: center, middle
+class: center, middle, inverse
 
 # The Lab Notebook of the Digital Age
 
-Konrad Hinsen
+### Konrad Hinsen
 
 Centre de Biophysique Moléculaire, Orléans, France
 
@@ -35,7 +72,7 @@ in their _lab notebook_.
 They did this to keep a _record_ of everything they did, because it's
 impossible to memorize all the details.
 
-They also used their lab notebooks as evidence that they had actually
+They also used their lab notebooks as _evidence_ that they had actually
 done the work they described in their papers.
 
 ---
@@ -44,7 +81,7 @@ background-image: url(./images/AGBell_Notebook.jpg)
 
 # Alexander Graham Bell, 1876
 
-.footnote[Image from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:AGBell_Notebook.jpg]]
+.footnote[Image from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:AGBell_Notebook.jpg)]
 
 ---
 
@@ -70,30 +107,43 @@ We need to have the lab notebook in the computer!
 
 ---
 
+background-image: url(http://www.nature.com/polopoly_fs/7.14520.1387392990!/image/2%201%20trendwatch%20%282%29.jpg_gen/derivatives/fullsize/2%201%20trendwatch%20%282%29.jpg)
+
+.footnote[Source: Nature News, December 2012, [Scientists losing data at a rapid rate](http://www.nature.com/news/scientists-losing-data-at-a-rapid-rate-1.14416)]
+
+---
+
 # The electronic lab notebook
 
 Tasks:
 
  - Create a log of all research activities
+
+ - Store or reference all data and software
+
  - Keep track of changes to data and software
- - Data sharing among collaborators
- - [Open Science](https://en.wikipedia.org/wiki/Open_science): doing research in public
+
+ - Share data among collaborators
 
 ---
 
 # Your data from a computer's point of view
 
  - All data is stored in _files_.
+
  - Files are organized in _directories_ / _folders_.
+
  - A file contains a sequence of _bytes_, i.e. numbers in the range 0-255.
+
  - All data must be _encoded_ as a sequence of bytes.
+
  - There are many ways to do this: lots of _file formats_.
 
 ---
 
 # The big divide: text vs. binary
 
-## Text formats
+### Text formats
 
  - First, encode your data as human-readable text.
  - Then, encode text as numbers.
@@ -101,10 +151,10 @@ Tasks:
  - But lots of way to encode data as text.
 
 
-## Binary formats
+### Binary formats
 
- - Everything that's not on the left.
- - Includes Word, Open Office, RTF, ... which are not _just_ text.
+ - Everything that's not plain text.
+ - Includes Word, Open Office, RTF, ... which are not _plain_ text.
  - Use problem-specific data encoding.
  - Often optimized for a specific purpose.
 
@@ -112,13 +162,13 @@ Tasks:
 
 # Pros and cons
 
-## Why use text formats?
+### Why use text formats?
 
  - **Lots** of software tools can handle text.
  - Straightforward inspection "by eye".
  - Relatively easy to write your own specialized tools.
 
-## Why use binary formats?
+### Why use binary formats?
 
  - Efficiency: smaller files, faster processing
 
@@ -126,19 +176,19 @@ Tasks:
 
 # Open vs. proprietary formats
 
-## Open formats
+### Open formats
 
  - Documented: there is a written definition of the data encoding meant
    for human readers.
  - Used by different software packages
 
-## Proprietary formats
+### Proprietary formats
 
  - Used by one or a few software packages
  - No documentation
  - Usually binary, to make reverse-engineering difficult
 
-## Grey zone
+### Grey zone
 
  - Formats used by open-source software but not documented except in
    the source code: hard to use in practice.
@@ -151,7 +201,7 @@ Tasks:
 
 **_Remember: data is at the core of science_**
 
-## Avoid proprietary formats
+## Avoid proprietary formats as much as you can
 
  - Your software controls your data, not you.
  - One day the software will disappear - and your data along with it.
@@ -162,22 +212,87 @@ Tasks:
 
   - Lots of useful tools.
   - Easier to handle for everyone.
+  - Less dependent on specific software.
 
 ---
 
 # Tools for text files
 
  - Usually created by software developers for software developers
+
  - Often powerful but not user-friendly
+
  - Most are designed to be used from a terminal
 
 This style of working may look archaic and certainly requires
 some learning effort. Trust me, it will pay off!
 
+---
+
+class: center, middle, inverse
+
+# Version control
+
+---
+
+background-image: url(http://www.phdcomics.com/comics/archive/phd101212s.gif)
+
+---
+
+# A time axis for files
+
+ - Many computer files represent work in progress:
+   program source code, scientific publications, theses, ...
+
+ - It is useful to go back to earlier versions, or identify
+   what has been changed when and by whom.
+
+ - Traceability is important for collaborative work
+   due to the risk of conflicting changes.
+
+A version control system stores	consecutive _versions_ of each file with
+
+ - a time stamp
+ - the author of each change
+ - a description of the change, provided by its author
+
+Version control systems were created for software development, but are
+useful for many other applications.
+
+**Version control is the most important tool to master in this course.**
+
+---
+
+# Choosing a version control system
+
+ - First generation: [RCS](http://www.gnu.org/software/rcs/), [CVS](http://savannah.nongnu.org/projects/cvs)
+
+ - Second generation: [Subversion](http://subversion.tigris.org/)
+
+ - Third generation: [Git](http://git-scm.com/), [Mercurial](http://www.selenic.com/mercurial/), [Bazaar](http://bazaar-vcs.org/)
+
+
+In this course we use _Git_ because
+
+ - it is very popular, also in science
+ - is is supported by the excellent Web service [GitHub](http://github.com/)
+
+Resons for not using Git:
+
+ - it is very complex
+ - its user interface is inconsistent
+
+Alternatives:
+
+  - [Gitless](http://people.csail.mit.edu/sperezde/gitless/), a Git-compatible
+    system with a cleaner design. Too recent for real-life experience, but it
+    looks promising.
+  - Mercurial is much simpler and a good choice if you can live
+    without GitHub.
 
     </textarea>
-<!--    <script src="file:///Users/hinsen/js/remark/remark.min.js" type="text/javascript"></script> -->
-    <script src="http://gnab.github.com/remark/downloads/remark-0.5.9.min.js" type="text/javascript"></script>
+    <script src="file:///Users/hinsen/js/remark/remark.min.js" type="text/javascript"></script>
+<!--    <script src="http://gnab.github.com/remark/downloads/remark-0.5.9.min.js" type="text/javascript"></script> -->
     <script type="text/javascript">
       var slideshow = remark.create();
     </script>
