@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css", media="screen">
+      @import url(http://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+        margin-top: 10px;
+      }
+      h1 { font-size: 3.5em; }
+      h2 { font-size: 3em; }
+      h3 { font-size: 1.6em; }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+
+      pre {
+        border-left: 0.4em solid #d7d7d7;
+        padding: 1em !important;
+      }
+      code {
+        background: transparent !important;
+      }
+      .right {
+        float: right;
+        margin-left: 1em;
+      }
+      .pushdown {
+        margin-top: 12em;
+      }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+       }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle, inverse
+
+# Version Control with Git
+
+### [Software Carpentry](http://software-carpentry.org/)
+
+adapted from http://github.com/swcarpentry/bc/tree/master/git/novice
+by Konrad Hinsen
+
+---
+
+# Introducing Version Control
+
+Wolfman and Dracula have been hired by Universal Missions
+(a space services spinoff from Euphoric State University)
+to figure out where the company should send its next planetary lander.
+They want to be able to work on the plans at the same time,
+but they have run into problems doing this in the past.
+If they take turns,
+each one will spend a lot of time waiting for the other to finish,
+but if they work on their own copies and email changes back and forth
+things will be lost, overwritten, or duplicated.
+
+The right solution is to use [version control](./gloss.html#version-control)
+to manage their work.
+Version control is better than mailing files back and forth because:
+
+*   Nothing that is committed to version control is ever lost.
+    This means it can be used like the "undo" feature in an editor,
+    and since all old versions of files are saved
+    it's always possible to go back in time to see exactly who wrote what on a particular day,
+    or what version of a program was used to generate a particular set of results.
+*   It keeps a record of who made what changes when,
+    so that if people have questions later on,
+    they know who to ask.
+*   It's hard (but not impossible) to accidentally overlook or overwrite someone's changes,
+    because the version control system highlights them automatically.
+
+This lesson shows how to use
+a popular open source version control system called Git.
+It is more complex than some alternatives,
+but it is widely used,
+primarily because of a hosting site called [GitHub](http://github.com).
+No matter which version control system you use,
+the most important thing to learn is not the details of their more obscure commands,
+but the workflow that they encourage.
+
+---
+
+# A Better Kind of Backup
+
+The first time we use Git on a new machine,
+we need to configure a few things (we'll insert blank lines
+between groups of shell commands to make them easier to read):
+
+~~~
+$ git config --global user.name "Vlad Dracula"
+
+$ git config --global user.email "vlad@tran.sylvan.ia"
+
+$ git config --global color.ui "auto"
+
+$ git config --global core.editor "nano"
+~~~
+
+(Please use your own name and email address instead of Dracula's,
+and please make sure you choose an editor that's actually on your system
+rather than `nano`.)
+
+Git commands are written `git verb`,
+where `verb` is what we actually want it to do.
+In this case,
+we're telling Git:
+
+*   our name and email address,
+*   to colorize output,
+*   what our favorite text editor is, and
+*   that we want to use these settings globally (i.e., for every project),
+
+---
+
+The four commands above only need to be run once:
+Git will remember the settings until we change them.
+Once Git is configured,
+we can start using Git.
+Let's create a directory for our work:
+
+~~~
+$ mkdir planets
+
+$ cd planets
+~~~
+
+and tell Git to make it a [repository](./gloss.html#repository):
+
+~~~
+$ git init
+~~~
+
+If we use `ls` to show the directory's contents,
+it appears that nothing has changed:
+
+~~~
+$ ls
+~~~
+
+But if we add the `-a` flag to show everything,
+we can see that Git has created a hidden directory called `.git`:
+
+~~~
+$ ls -a
+.	..	.git
+~~~
+
+Git stores information about the project in this special sub-directory.
+If we ever delete it,
+we will lose the project's history.
+
+---
+
+We can ask Git for the status of our project at any time like this:
+
+~~~
+$ git status
+# On branch master
+#
+# Initial commit
+#
+nothing to commit (create/copy files and use "git add" to track)
+~~~
+
+We'll explain what `branch master` means later.
+For the moment,
+let's add some notes about Mars's suitability as a base.
+(We'll `cat` the text in the file after we edit it so that you can see what we're doing,
+but in real life this isn't necessary.)
+
+~~~
+$ nano mars.txt
+
+$ cat mars.txt
+Cold and dry, but everything is my favorite color
+
+$ ls
+mars.txt
+
+$ git status
+# On branch master
+#
+# Initial commit
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	mars.txt
+nothing added to commit but untracked files present (use "git add" to track)
+~~~
+
+---
+
+The "untracked files" message means that there's a file in the directory
+that Git isn't keeping track of.
+We can tell Git that it should do so like this:
+
+~~~
+$ git add mars.txt
+~~~
+
+and check that the right thing happened like this:
+
+~~~
+$ git status
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#   (use "git rm --cached <file>..." to unstage)
+#
+#	new file:   mars.txt
+#
+~~~
+
+Git now knows that it's supposed to keep track of this file,
+but it hasn't yet recorded any changes for posterity.
+To get it to do that,
+we need to run one more command:
+
+~~~
+$ git commit -m "Starting to think about Mars"
+[master (root-commit) f22b25e] Starting to think about Mars
+ 1 file changed, 1 insertion(+)
+ create mode 100644 mars.txt
+~~~
+
+---
+
+When we run `git commit`,
+Git takes everything we have told it to save using `git add`
+and stores a copy permanently inside the special `.git` directory.
+This permanent copy is called a [revision](.././gloss.html#revision).
+We use the `-m` flag (for "message")
+to record a comment that will help us remember later on what we did and why.
+If we just run `git commit` without the `-m` option,
+Git will launch `nano` (or whatever other editor we configured at the start)
+so that we can write a longer message.
+
+If we run `git status` now:
+
+~~~
+$ git status
+# On branch master
+nothing to commit, working directory clean
+~~~
+
+it tells us everything is up to date.
+If we want to know what we've done recently,
+we can ask Git to show us the project's history:
+
+~~~
+$ git log
+commit f22b25e3233b4645dabd0d81e651fe074bd8e73b
+Author: Vlad Dracula <vlad@tran.sylvan.ia>
+Date:   Thu Aug 22 09:51:46 2013 -0400
+
+    Starting to think about Mars
+~~~
+
+Now suppose Dracula adds more information to the file:
+
+~~~
+$ nano mars.txt
+
+$ cat mars.txt
+Cold and dry, but everything is my favorite color
+The two moons may be a problem for Wolfman
+~~~
+
+---
+
+We don't need to run `git add` again,
+because Git already knows this file is on the list of things it's managing.
+If we run `git status`,
+it tells us the file has been modified:
+
+~~~
+$ git status
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   mars.txt
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+~~~
+
+The last line is the key phrase:
+"no changes added to commit".
+We have changed this file,
+but we haven't committed to making those changes yet.
+
+---
+
+Let's double-check our work using `git diff`,
+which shows us the differences between
+the current state of the file
+and the most recently saved version:
+
+~~~
+$ git diff
+diff --git a/mars.txt b/mars.txt
+index df0654a..315bf3a 100644
+--- a/mars.txt
++++ b/mars.txt
+@@ -1 +1,2 @@
+ Cold and dry, but everything is my favorite color
++The two moons may be a problem for Wolfman
+~~~
+
+The output is cryptic because
+it is actually a series of commands for tools like editors and `patch`
+telling them how to reconstruct one file given the other.
+If we can break it down into pieces:
+
+1.   The first line tells us that Git is using the Unix `diff` command
+     to compare the old and new versions of the file.
+2.   The second line tells exactly which [revisions](.././gloss.html#revision) of the file
+     Git is comparing;
+     `df0654a` and `315bf3a` are unique computer-generated labels for those revisions.
+3.   The remaining lines show us the actual differences
+     and the lines on which they occur.
+     The numbers between the `@@` markers indicate which lines we're changing;
+     the `+` on the lines below show that we are adding lines.
+
+---
+
+Let's commit our change:
+
+~~~
+$ git commit -m "Concerns about Mars's moons on my furry friend"
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   mars.txt
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+~~~
+
+Whoops:
+Git won't commit because we didn't use `git add` first.
+Let's do that:
+
+~~~
+$ git add mars.txt
+
+$ git commit -m "Concerns about Mars's moons on my furry friend"
+[master 34961b1] Concerns about Mars's moons on my furry friend
+ 1 file changed, 1 insertion(+)
+~~~
+
+Git insists that we add files to the set we want to commit
+before actually committing anything
+because we often won't commit everything at once.
+For example,
+suppose we're adding a few citations to our supervisor's work
+to our thesis.
+We might want to commit those additions,
+and the corresponding addition to the bibliography,
+but *not* commit the work we've been doing on the conclusion.
+
+---
+
+To allow for this,
+Git has a special staging area
+where it keeps track of things that have been added to
+the current [change set](./gloss.html#change-set)
+but not yet committed.
+`git add` puts things in this area,
+and `git commit` then copies them to long-term storage:
+
+![The Git Staging Area](./images/git-staging-area.svg)
+
+---
+
+The following commands show this in action:
+
+~~~
+$ nano mars.txt
+
+$ cat mars.txt
+Cold and dry, but everything is my favorite color
+The two moons may be a problem for Wolfman
+But the Mummy will appreciate the lack of humidity
+
+$ git diff
+diff --git a/mars.txt b/mars.txt
+index 315bf3a..b36abfd 100644
+--- a/mars.txt
++++ b/mars.txt
+@@ -1,2 +1,3 @@
+ Cold and dry, but everything is my favorite color
+ The two moons may be a problem for Wolfman
++But the Mummy will appreciate the lack of humidity
+~~~
+
+So far, so good:
+we've made a change,
+and `git diff` tells us what it is.
+Now let's put that change in the staging area
+and see what `git diff` reports:
+
+~~~
+$ git add mars.txt
+
+$ git diff
+~~~
+
+There is no output:
+as far as Git can tell,
+there's no difference between what it's been asked to save permanently
+and what's currently in the directory.
+
+---
+
+However,
+if we do this:
+
+~~~
+$ git diff --staged
+diff --git a/mars.txt b/mars.txt
+index 315bf3a..b36abfd 100644
+--- a/mars.txt
++++ b/mars.txt
+@@ -1,2 +1,3 @@
+ Cold and dry, but everything is my favorite color
+ The two moons may be a problem for Wolfman
++But the Mummy will appreciate the lack of humidity
+~~~
+
+it shows us the difference between
+the last committed change
+and what's in the staging area.
+Let's save our changes:
+
+~~~
+$ git commit -m "Thoughts about the climate"
+[master 005937f] Thoughts about the climate
+ 1 file changed, 1 insertion(+)
+~~~
+
+check our status:
+
+~~~
+$ git status
+# On branch master
+nothing to commit, working directory clean
+~~~
+
+---
+
+and look at the history of what we've done so far:
+
+~~~
+$ git log
+git log
+commit 005937fbe2a98fb83f0ade869025dc2636b4dad5
+Author: Vlad Dracula <vlad@tran.sylvan.ia>
+Date:   Thu Aug 22 10:14:07 2013 -0400
+
+    Thoughts about the climate
+
+commit 34961b159c27df3b475cfe4415d94a6d1fcd064d
+Author: Vlad Dracula <vlad@tran.sylvan.ia>
+Date:   Thu Aug 22 10:07:21 2013 -0400
+
+    Concerns about Mars's moons on my furry friend
+
+commit f22b25e3233b4645dabd0d81e651fe074bd8e73b
+Author: Vlad Dracula <vlad@tran.sylvan.ia>
+Date:   Thu Aug 22 09:51:46 2013 -0400
+
+    Starting to think about Mars
+~~~
+
+---
+
+If we want to see what we changed when,
+we use `git diff` again,
+but refer to old versions
+using the notation `HEAD~1`, `HEAD~2`, and so on:
+
+~~~
+$ git diff HEAD~1 mars.txt
+diff --git a/mars.txt b/mars.txt
+index 315bf3a..b36abfd 100644
+--- a/mars.txt
++++ b/mars.txt
+@@ -1,2 +1,3 @@
+ Cold and dry, but everything is my favorite color
+ The two moons may be a problem for Wolfman
++But the Mummy will appreciate the lack of humidity
+
+$ git diff HEAD~2 mars.txt
+diff --git a/mars.txt b/mars.txt
+index df0654a..b36abfd 100644
+--- a/mars.txt
++++ b/mars.txt
+@@ -1 +1,3 @@
+ Cold and dry, but everything is my favorite color
++The two moons may be a problem for Wolfman
++But the Mummy will appreciate the lack of humidity
+~~~
+
+`HEAD` means "the most recently saved version".
+`HEAD~1` (pronounced "head minus one")
+means "the previous revision".
+We can also refer to revisions using
+those long strings of digits and letters
+that `git log` displays.
+These are unique IDs for the changes,
+and "unique" really does mean unique:
+every change to any set of files on any machine
+has a unique 40-character identifier.
+
+---
+
+Our first commit was given the ID
+f22b25e3233b4645dabd0d81e651fe074bd8e73b,
+so let's try this:
+
+~~~
+$ git diff f22b25e3233b4645dabd0d81e651fe074bd8e73b mars.txt
+diff --git a/mars.txt b/mars.txt
+index df0654a..b36abfd 100644
+--- a/mars.txt
++++ b/mars.txt
+@@ -1 +1,3 @@
+ Cold and dry, but everything is my favorite color
++The two moons may be a problem for Wolfman
++But the Mummy will appreciate the lack of humidity
+~~~
+
+That's the right answer,
+but typing random 40-character strings is annoying,
+so Git lets us use just the first few:
+
+~~~
+$ git diff f22b25e mars.txt
+diff --git a/mars.txt b/mars.txt
+index df0654a..b36abfd 100644
+--- a/mars.txt
++++ b/mars.txt
+@@ -1 +1,3 @@
+ Cold and dry, but everything is my favorite color
++The two moons may be a problem for Wolfman
++But the Mummy will appreciate the lack of humidity
+~~~
+
+---
+
+All right:
+we can save changes to files and see what we've changed---how
+can we restore older versions of things?
+Let's suppose we accidentally overwrite our file:
+
+~~~
+$ nano mars.txt
+
+$ cat mars.txt
+We will need to manufacture our own oxygen
+~~~
+
+`git status` now tells us that the file has been changed,
+but those changes haven't been staged:
+
+~~~
+$ git status
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   mars.txt
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+~~~
+
+We can put things back the way they were like this:
+
+~~~
+$ git reset --hard HEAD
+HEAD is now at 005937f Thoughts about the climate
+
+$ cat mars.txt
+Cold and dry, but everything is my favorite color
+The two moons may be a problem for Wolfman
+But the Mummy will appreciate the lack of humidity
+~~~
+
+---
+
+The `--hard` argument to `git reset` tells it to throw away local changes:
+without that,
+`git reset` won't destroy our work.
+`HEAD` tells `git reset` that we want to put things back to
+the way they were recorded in the `HEAD` revision.
+(Remember,
+we haven't done a `git commit` with these changes yet,
+so `HEAD` is still where it was.)
+We can use `git reset --hard HEAD~55` and so on
+to back up to earlier revisions,
+`git reset --hard 34961b1` to back up to a particular revision,
+and so on.
+
+But what if we want to recover somes files without losing other work we've done since?
+For example,
+what if we have added some material to the conclusion of our paper that we'd like to keep,
+but we want to get back an earlier version of the introduction?
+In that case,
+we want to check out an older revision of the file,
+so we do something like this:
+
+~~~
+$ git checkout 123456 mars.txt
+~~~
+
+but use the first few digits of an actual revision number instead of 123456.
+To get the right answer,
+we must use the revision number that identifies the state of the repository
+*before* the change we're trying to undo.
+A common mistake is to use the revision number of
+the commit in which we made the change we're trying to get rid of:
+
+![When Git Updates Revision Numbers](./images/git-when-revisions-updated.svg)
+
+The fact that files can be reverted one by one
+tends to change the way people organize their work.
+If everything is in one large document,
+it's hard (but not impossible) to undo changes to the introduction
+without also undoing changes made later to the conclusion.
+If the introduction and conclusion are stored in separate files,
+on the other hand,
+moving backward and forward in time becomes much easier.
+
+---
+
+# Collaborating
+
+Version control really comes into its own
+when we begin to collaborate with other people.
+We already have most of the machinery we need to do this;
+the only thing missing is to copy changes from one repository to another.
+
+Systems like Git and Mercurial allow us to move work between any two repositories.
+In practice,
+though,
+it's easiest to use one copy as a central hub,
+and to keep it on the web rather than on someone's laptop.
+Most programmers use hosting services like [GitHub](http://github.com) or [BitBucket](http://bitbucket.org)
+to hold those master copies;
+we'll explore the pros and cons of this in the final section of this lesson.
+
+Let's start by sharing the changes we've made to our current project with the world.
+
+Log in to GitHub,
+then create a new repository called `planets`
+using their GUI.
+
+---
+
+background-image: url(./images/github-create-repo-01.png)
+
+---
+
+background-image: url(./images/github-create-repo-02.png)
+
+---
+
+background-image: url(./images/github-create-repo-03.png)
+
+---
+
+This effectively does the following on GitHub's servers:
+
+~~~
+$ mkdir planets
+
+$ cd planets
+
+$ git init
+~~~
+
+Our local repository still contains our earlier work on `mars.txt`,
+but the remote repository on GitHub doesn't contain any files yet:
+
+![Freshly-Made GitHub Repository](./images/git-freshly-made-github-repo.svg)
+
+---
+
+The next step is to connect the two repositories.
+We do this by making the GitHub repository a [remote](./gloss.html#repository-remote)
+for the local repository.
+The home page of the repository on GitHub includes
+the string we need to identify it:
+
+![Where to Find Repository URL on GitHub](./images/github-find-repo-string.png)
+
+
+For now,
+we'll use the 'http' [protocol](./gloss.html#protocol)
+(which is also used by web browsers)
+since it requires the least setup.
+Copy that URL from the browser,
+go into the local `planets` repository,
+and run this command:
+
+~~~
+$ git remote add origin https://github.com/vlad/planets
+~~~
+
+(using your GitHub ID instead of `vlad`).
+We can check that the command has worked by running `git remote -v`:
+
+~~~
+$ git remote -v
+origin   https://github.com/vlad/planets.git (push)
+origin   https://github.com/vlad/planets.git (fetch)
+~~~
+
+---
+
+There's nothing magic about the name `origin`,
+but we'll see in a moment why it's a sensible choice.
+Once this is set up,
+this command will push the changes from our local repository
+to the repository on GitHub:
+
+~~~
+$ git push origin master
+Counting objects: 9, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (9/9), 821 bytes, done.
+Total 9 (delta 2), reused 0 (delta 0)
+To https://github.com/vlad/planets
+ * [new branch]      master -> master
+Branch master set up to track remote branch master from origin.
+~~~
+
+Our local and remote repositories are now in this state:
+
+![GitHub Repository After First Push](./images/github-repo-after-first-push.svg)
+
+---
+
+> ### The '-u' Flag
+>
+> You may see a `-u` option used with `git push`.
+> This tells Git what [branch](.././gloss.html#branch) to use
+> in the repository you're pushing to.
+> We discuss branches and branching in our intermediate-level lessons.
+
+
+We can pull changes from the remote repository to the local one as well:
+
+~~~
+$ git pull origin master
+From https://github.com/vlad/planets
+ * branch            master     -> FETCH_HEAD
+Already up-to-date.
+~~~
+
+Pulling has no effect in this case
+because the two repositories are already synchronized.
+If someone else had pushed some changes,
+though,
+this command would download them to our local repository.
+We can simulate this by going to another directory&mdash;for example, `/tmp`&mdash;and
+[cloning](./gloss.html#repository-clone) our GitHub repository:
+
+~~~
+$ cd /tmp
+$ git clone https://github.com/vlad/planets.git
+~~~
+
+---
+
+`git clone` creates a fresh local copy of a remote repository.
+(We did it in `/tmp` or some other directory so that we don't overwrite our existing `planets` directory.)
+Our computer now has two copies of the repository:
+
+![After Creating Duplicate Clone of Repository](./images/git-after-duplicate-clone.svg)
+
+
+Let's make a change in the copy in `/tmp/planets`:
+
+~~~
+$ cd /tmp/planets
+
+$ nano pluto.txt
+
+$ cat pluto.txt
+It is so a planet!
+
+$ git add pluto.txt
+
+$ git commit -m "Some notes about Pluto"
+ 1 file changed, 1 insertion(+)
+ create mode 100644 pluto.txt
+~~~
+
+---
+
+then push the change to GitHub:
+
+~~~
+$ git push origin master
+Counting objects: 4, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 306 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/vlad/planets.git
+   9272da5..29aba7c  master -> master
+~~~
+
+Our three repositories now look like this:
+
+![After Pushing Change from Duplicate Repository](./images/git-after-change-to-duplicate-repo.svg)
+
+---
+
+We can now download changes into the original repository on our machine:
+
+~~~
+$ cd ~/planets
+
+$ git pull origin master
+remote: Counting objects: 4, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 3 (delta 0)
+Unpacking objects: 100% (3/3), done.
+From https://github.com/vlad/planets
+ * branch            master     -> FETCH_HEAD
+Updating 9272da5..29aba7c
+Fast-forward
+ pluto.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 pluto.txt
+~~~
+
+In practice,
+we would probably never have two copies of the same remote repository
+on our laptop at once.
+Instead,
+one of those copies would be on our laptop,
+and the other on a lab machine,
+or on someone else's computer.
+Pushing and pulling changes gives us a reliable way
+to share work between different people and machines.
+
+---
+
+# Conflicts
+
+As soon as people can work in parallel,
+someone's going to step on someone else's toes.
+This will even happen with a single person:
+if we are working on a piece of software on both our laptop and a server in the lab,
+we could make different changes to each copy.
+Version control helps us manage these [conflicts](./gloss.html#conflict)
+by giving us tools to [resolve](./gloss.html#resolve) overlapping changes.
+
+To see how we can resolve conflicts,
+we must first create one.
+The file `mars.txt` currently looks like this
+in both local copies of our `planets` repository
+(the one in our home directory and the one in `/tmp`):
+
+~~~
+$ cat mars.txt
+Cold and dry, but everything is my favorite color
+The two moons may be a problem for Wolfman
+But the Mummy will appreciate the lack of humidity
+~~~
+
+Let's add a line to the copy under our home directory:
+
+~~~
+$ nano mars.txt
+
+$ cat mars.txt
+Cold and dry, but everything is my favorite color
+The two moons may be a problem for Wolfman
+But the Mummy will appreciate the lack of humidity
+This line added to our home copy
+~~~
+
+---
+
+and then push the change to GitHub:
+
+~~~
+$ git add mars.txt
+
+$ git commit -m "Adding a line in our home copy"
+[master 5ae9631] Adding a line in our home copy
+ 1 file changed, 1 insertion(+)
+
+$ git push origin master
+Counting objects: 5, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 352 bytes, done.
+Total 3 (delta 1), reused 0 (delta 0)
+To https://github.com/vlad/planets
+   29aba7c..dabb4c8  master -> master
+~~~
+
+Our repositories are now in this state:
+
+![After Making First Change](./images/git-after-first-conflicting-change.svg)
+
+---
+
+Now let's switch to the copy under `/tmp`
+and make a different change there
+*without* updating from GitHub:
+
+~~~
+$ cd /tmp/planets
+
+$ nano mars.txt
+
+$ cat mars.txt
+Cold and dry, but everything is my favorite color
+The two moons may be a problem for Wolfman
+But the Mummy will appreciate the lack of humidity
+We added a different line in the temporary copy
+~~~
+
+We can commit the change locally:
+
+~~~
+$ git add mars.txt
+
+$ git commit -m "Adding a line in the temporary copy"
+[master 07ebc69] Adding a line in the temporary copy
+ 1 file changed, 1 insertion(+)
+~~~
+
+but Git won't let us push it to GitHub:
+
+~~~
+$ git push origin master
+To https://github.com/vlad/planets.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/vlad/planets.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Merge the remote changes (e.g. 'git pull')
+hint: before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+~~~
+
+---
+
+Git detects that the changes made in one copy overlap with those made in the other
+and stops us from trampling on our previous work.
+What we have to do is pull the changes from GitHub,
+[merge](./gloss.html#repository-merge) them into the copy we're currently working in,
+and then push that.
+Let's start by pulling:
+
+~~~
+$ git pull origin master
+remote: Counting objects: 5, done.        
+remote: Compressing objects: 100% (2/2), done.        
+remote: Total 3 (delta 1), reused 3 (delta 1)        
+Unpacking objects: 100% (3/3), done.
+From https://github.com/vlad/planets
+ * branch            master     -> FETCH_HEAD
+Auto-merging mars.txt
+CONFLICT (content): Merge conflict in mars.txt
+Automatic merge failed; fix conflicts and then commit the result.
+~~~
+
+`git pull` tells us there's a conflict,
+and marks that conflict in the affected file:
+
+~~~
+$ cat mars.txt
+Cold and dry, but everything is my favorite color
+The two moons may be a problem for Wolfman
+But the Mummy will appreciate the lack of humidity
+<<<<<<< HEAD
+We added a different line in the temporary copy
+=======
+This line added to our home copy
+>>>>>>> dabb4c8c450e8475aee9b14b4383acc99f42af1d
+~~~
+
+Our change---the one in `HEAD`---is preceded by `<<<<<<<`.
+Git has then inserted `=======` as a separator between the conflicting changes
+and marked the end of the content downloaded from GitHub with `>>>>>>>`.
+(The string of letters and digits after that marker
+identifies the revision we've just downloaded.)
+
+---
+
+It is now up to us to edit this file to remove these markers
+and reconcile the changes.
+We can do anything we want:
+keep the change in this branch,
+keep the change made in the other,
+write something new to replace both,
+or get rid of the change entirely.
+Let's replace both so that the file looks like this:
+
+~~~
+$ cat mars.txt
+Cold and dry, but everything is my favorite color
+The two moons may be a problem for Wolfman
+But the Mummy will appreciate the lack of humidity
+We removed the conflict on this line
+~~~
+
+To finish merging,
+we add `mars.txt` to the changes being made by the merge
+and then commit:
+
+~~~
+$ git add mars.txt
+
+$ git status
+# On branch master
+# All conflicts fixed but you are still merging.
+#   (use "git commit" to conclude merge)
+#
+# Changes to be committed:
+#
+#	modified:   mars.txt
+#
+
+$ git commit -m "Merging changes from GitHub"
+[master 2abf2b1] Merging changes from GitHub
+~~~
+
+---
+
+Our repositories now look like this:
+
+![After Making Second (Conflicting) Change](./images/git-after-second-conflicting-change.svg)
+
+
+so we push our changes to GitHub:
+
+~~~
+$ git push origin master
+Counting objects: 10, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 697 bytes, done.
+Total 6 (delta 2), reused 0 (delta 0)
+To https://github.com/vlad/planets.git
+   dabb4c8..2abf2b1  master -> master
+~~~
+
+---
+
+to get this:
+
+![After Merging Changes Locally](./images/git-after-merging.svg)
+
+Git keeps track of what we've merged with what,
+so we don't have to fix things by hand again
+if we switch back to the repository in our home directory and pull from GitHub:
+
+~~~
+$ cd ~/planets
+
+$ git pull origin master
+remote: Counting objects: 10, done.        
+remote: Compressing objects: 100% (4/4), done.        
+remote: Total 6 (delta 2), reused 6 (delta 2)        
+Unpacking objects: 100% (6/6), done.
+From https://github.com/vlad/planets
+ * branch            master     -> FETCH_HEAD
+Updating dabb4c8..2abf2b1
+Fast-forward
+ mars.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+~~~
+
+---
+
+we get the merged file:
+
+~~~
+$ cat mars.txt 
+Cold and dry, but everything is my favorite color
+The two moons may be a problem for Wolfman
+But the Mummy will appreciate the lack of humidity
+We removed the conflict on this line
+~~~
+
+We don't need to merge again because GitHub knows someone has already done that.
+
+Version control's ability to merge conflicting changes
+is another reason users tend to divide their programs and papers into multiple files
+instead of storing everything in one large file.
+There's another benefit too:
+whenever there are repeated conflicts in a particular file,
+the version control system is essentially trying to tell its users
+that they ought to clarify who's responsible for what,
+or find a way to divide the work up differently.
+
+---
+
+# Open Science
+
+
+<blockquote>
+The opposite of "open" isn't "closed".
+The opposite of "open" is "broken".
+<br/>
+&mdash; John Wilbanks
+</blockquote>
+
+Free sharing of information might be the ideal in science,
+but the reality is often more complicated.
+Normal practice today looks something like this:
+
+*   A scientist collects some data and stores it on a machine
+    that is occasionally backed up by her department.
+*   She then writes or modifies a few small programs
+    (which also reside on her machine)
+    to analyze that data.
+*   Once she has some results,
+    she writes them up and submits her paper.
+    She might include her data---a growing number of journals require this---but
+    she probably doesn't include her code.
+*   Time passes.
+*   The journal sends her reviews written anonymously by a handful of other people in her field.
+    She revises her paper to satisfy them,
+    during which time she might also modify the scripts she wrote earlier,
+    and resubmits.
+*   More time passes.
+*   The paper is eventually published.
+    It might include a link to an online copy of her data,
+    but the paper itself will be behind a paywall:
+    only people who have personal or institutional access
+    will be able to read it.
+
+---
+
+For a growing number of scientists,
+though,
+the process looks like this:
+
+*   The data that the scientist collects is stored in an open access repository
+    like [figshare](http://figshare.com/) or [Dryad](http://datadryad.org/)
+    as soon as it's collected,
+    and given its own DOI.
+*   The scientist creates a new repository on GitHub to hold her work.
+*   As she does her analysis,
+    she pushes changes to her scripts
+    (and possibly some output files)
+    to that repository.
+    She also uses the repository for her paper;
+    that repository is then the hub for collaboration with her colleagues.
+*   When she's happy with the state of her paper,
+    she posts a version to [arXiv](http://arxiv.org/)
+    or some other preprint server
+    to invite feedback from peers.
+*   Based on that feedback,
+    she may post several revisions
+    before finally submitting her paper to a journal.
+*   The published paper includes links to her preprint
+    and to her code and data repositories,
+    which  makes it much easier for other scientists
+    to use her work as starting point for their own research.
+
+This open model accelerates discovery:
+the more open work is,
+the more widely it is cited and re-used.
+However,
+people who want to work this way need to make some decisions
+about what exactly "open" means in practice.
+
+---
+
+### Licensing
+
+The first question is licensing.
+Broadly speaking,
+there are two kinds of open license for software,
+and half a dozen for data and publications.
+For software,
+people can choose between the [GNU Public License](http://opensource.org/licenses/GPL-3.0) (GPL) on the one hand,
+and licenses like the [MIT](http://opensource.org/licenses/MIT)
+and [BSD](http://opensource.org/licenses/BSD-2-Clause) licenses on the other.
+All of these licenses allow unrestricted sharing and modification of programs,
+but the GPL is [infective](../gloss.html#infective-license):
+anyone who distributes a modified version of the code
+(or anything that includes GPL'd code)
+must make *their* code freely available as well.
+
+Proponents of the GPL argue that this requirement is needed
+to ensure that people who are benefiting from freely-available code
+are also contributing back to the community.
+Opponents counter that many open source projects have had long and successful lives
+without this condition,
+and that the GPL makes it more difficult to combine code from different sources.
+At the end of the day,
+what matters most is that:
+
+1.   every project have a file in its home directory
+     called something like `LICENSE` or `LICENSE.txt`
+     that clearly states what the license is, and
+2.   people use existing licenses rather than writing new ones.
+
+The second point is as important as the first:
+most scientists are not lawyers,
+so wording that may seem sensible to a layperson
+may have unintended gaps or consequences.
+The [Open Source Initiative](http://opensource.org/)
+maintains a list of open source licenses,
+and [tl;drLegal](http://www.tldrlegal.com/) explains many of them in plain English.
+
+---
+
+When it comes to data, publications, and the like,
+scientists have many more options to choose from.
+The good news is that an organization called [Creative Commons(http://creativecommons.org/)
+has prepared a set of licenses using combinations of four basic restrictions:
+
+*   Attribution: derived works must give the original author credit for their work.
+*   No Derivatives: people may copy the work, but must pass it along unchanged.
+*   Share Alike: derivative works must license their work under the same terms as the original.
+*   Noncommercial: free use is allowed, but commercial use is not.
+
+These four restrictions are abbreviated "BY", "ND", "SA", and "NC" respectively,
+so "CC-BY-ND" means,
+"People can re-use the work both for free and commercially,
+but cannot make changes and must cite the original."
+These [short descriptions](http://creativecommons.org/licenses/)
+summarize the six CC licenses in plain language,
+and include links to their full legal formulations.
+
+There is one other important license that doesn't fit into this categorization.
+Scientists (and other people) can choose to put material in the public domain,
+which is often abbreviated "PD".
+In this case,
+anyone can do anything they want with it,
+without needing to cite the original
+or restrict further re-use.
+The table below shows how the six Creative Commons licenses and PD relate to one another:
+
+<table border="1">
+  <tr>
+    <td></td>
+    <td colspan="7" align="center">Licenses that can be used for derivative work or adaptation</td>
+  </tr>
+  <tr>
+    <td>Original work</td> <td>by</td> <td>by-nc</td> <td>by-nc-nd</td> <td>by-nc-sa</td> <td>by-nd</td> <td>by-sa</td> <td>pd</td>
+  </tr>
+  <tr>
+    <td>by</td>       <td>X</td> <td>X</td> <td>X</td> <td>X</td> <td>X</td> <td>X</td> <td> </td>
+  </tr>
+  <tr>
+    <td>by-nc</td>    <td> </td> <td>X</td> <td>X</td> <td>X</td> <td> </td> <td> </td> <td> </td>
+  </tr>
+  <tr>
+    <td>by-nc-nd</td> <td> </td> <td> </td> <td> </td> <td> </td> <td> </td> <td> </td> <td> </td>
+  </tr>
+  <tr>
+    <td>by-nc-sa</td> <td> </td> <td> </td> <td> </td> <td>X</td> <td> </td> <td> </td> <td> </td>
+  </tr>
+  <tr>
+    <td>by-nd</td>    <td> </td> <td> </td> <td> </td> <td> </td> <td> </td> <td> </td> <td> </td>
+  </tr>
+  <tr>
+    <td>by-sa</td>    <td> </td> <td> </td> <td> </td> <td> </td> <td> </td> <td>X</td> <td> </td>
+  </tr>
+  <tr>
+    <td>pd</td>       <td>X</td> <td>X</td> <td>X</td> <td>X</td> <td>X</td> <td>X</td> <td>X</td>
+  </tr>
+</table>
+
+---
+
+[Software Carpentry](http://software-carpentry.org/license.html)
+uses CC-BY for its lessons and the MIT License for its code
+in order to encourage the widest possible re-use.
+Again,
+the most important thing is for the `LICENSE` file in the root directory of your project
+to state clearly what your license is.
+You may also want to include a file called `CITATION` or `CITATION.txt`
+that describes how to reference your project;
+the one for Software Carpentry states:
+
+~~~
+To reference Software Carpentry in publications, please cite both of the following:
+
+Greg Wilson: "Software Carpentry: Lessons Learned". arXiv:1307.5448, July 2013.
+
+@online{wilson-software-carpentry-2013,
+  author      = {Greg Wilson},
+  title       = {Software Carpentry: Lessons Learned},
+  version     = {1},
+  date        = {2013-07-20},
+  eprinttype  = {arxiv},
+  eprint      = {1307.5448}
+}
+~~~
+
+---
+
+### Hosting
+
+The second big question for groups that want to open up their work
+is where to host their code and data.
+One option is for the lab, the department, or the university to provide a server,
+manage accounts and backups,
+and so on.
+The main benefit of this is that it clarifies who owns what,
+which is particularly important if any of the material is sensitive
+(i.e.,
+relates to experiments involving human subjects
+or may be used in a patent application).
+The main drawbacks are the cost of providing the service and its longevity:
+a scientist who has spent ten years collecting data
+would like to be sure that data will still be available ten years from now,
+but that's well beyond the lifespan of most of the grants that fund academic infrastructure.
+
+The alternative is to use a public hosting service like [GitHub](http://github.com),
+[BitBucket](http://bitbucket.org),
+[Google Code](http://code.google.com),
+or [SourceForge](http://sourceforge.net).
+All of these allow people to create repositories through a web interface,
+and also provide mailing lists,
+ways to keep track of who's doing what,
+and so on.
+They all benefit from economies of scale and network effects:
+it's easier to run one large service well
+than to run many smaller services to the same standard,
+and it's also easier for people to collaborate if they're using the same service,
+not least because it gives them fewer passwords to remember.
+
+However,
+all of these services place some constraints on people's work.
+In particular,
+most give users a choice:
+if they're willing to share their work with others,
+it will be hosted for free,
+but if they want privacy,
+they may have to pay.
+Sharing might seem like the only valid choice for science,
+but many institutions may not allow researchers to do this,
+either because they want to protect future patent applications
+or simply because what's new is often also frightening.
+
+    </textarea>
+<!--    <script src="file:///Users/hinsen/js/remark/remark.min.js" type="text/javascript"></script> -->
+    <script src="http://gnab.github.com/remark/downloads/remark-0.5.9.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>

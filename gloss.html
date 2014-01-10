@@ -1,0 +1,516 @@
+<h2 id="">&#8212;</h2>
+
+<h1 id="glossary">Glossary</h1>
+
+<p><strong>absolute path</strong>: <a name="absolute-path"></a>
+A <a href="#path">path</a> that refers to a particular location in a file system.
+Absolute paths are usually written with respect to the file system&#8217;s
+<a href="#root-directory">root directory</a>,
+and begin with either &#8220;/&#8221; (on Unix) or &quot;&quot; (on Microsoft Windows).
+See also: <a href="#relative-path">relative path</a>.</p>
+
+<p><strong>additive color model</strong>: <a name="additive-color-model"></a>
+A way to represent colors as the sum of contributions from primary colors
+such as <a href="#rgb">red, green, and blue</a>.</p>
+
+<p><strong>aggregation function</strong>: <a name="aggregation-function"></a>
+A function such as <code>sum</code> or <code>max</code> that combines many values to produce a single result.</p>
+
+<p><strong>alias</strong> (a library): <a name="alias-library"></a>
+To give a library a nickname while importing it.</p>
+
+<p><strong>assertion</strong>: <a name="assertion"></a>
+An expression which is supposed to be true at a particular point in a program.
+Programmers typically put assertions in their code to check for errors;
+if the assertion fails (i.e., if the expression evaluates as false),
+the program halts and produces an error message.
+See also: <a href="#invariant">invariant</a>, <a href="#precondition">precondition</a>, <a href="#postcondition">postcondition</a>,</p>
+
+<p><strong>assignment</strong>: <a name="assignment"></a>
+To give a value a name by associating a variable with it.</p>
+
+<p><strong>atomic value</strong>: <a name="atomic-value"></a>
+A value that cannot be decomposed into smaller pieces.
+For example,
+the number 12 is usually considered atomic
+(unless we are teaching addition to school children,
+in which case we might decompose it into tens and ones).</p>
+
+<p><strong>call stack</strong>: <a name="call-stack"></a>
+A data structure inside a running program that keeps track of active function calls.
+Each call&#8217;s variables are stored in a <a href="#stack-frame">stack frame</a>;
+a new stack frame is put on top of the stack for each call,
+and discarded when the call is finished.</p>
+
+<p><strong>cascading delete</strong>: <a name="cascading-delete"></a>
+The practice of automatically deleting things in a database
+that depend on a record
+when that record is deleted.
+See also: <a href="#referential-integrity">referential integrity</a>.</p>
+
+<p><strong>case insensitive</strong>: <a name="case-insensitive"></a>
+Treating text as if upper and lower case characters were the same.
+See also: <a href="#case-sensitive">case sensitive</a>.</p>
+
+<p><strong>change set</strong>: <a name="change-set"></a>
+A group of changes to one or more files
+that are <a href="#commit">committed</a> to a <a href="#version-control">version control</a> <a href="#repository">repository</a>
+in a single operation.</p>
+
+<p><strong>clone</strong> (a repository): <a name="repository-clone"></a>
+To make a copy of a <a href="#repository">version control repository</a>.</p>
+
+<p><strong>comma-separated values</strong> (CSV): <a name="csv"></a>
+A common textual representation for tables
+in which the values in each row are separated by commas.</p>
+
+<p><strong>command-line interface</strong> (CLI): <a name="cli"></a>
+An interface based on typing commands,
+usually at a <a href="#repl">REPL</a>.
+See also: (graphical user interface)<span class="externalcitation">[#gui]</span>.</p>
+
+<p><strong>comment</strong>: <a name="comment"></a>
+A remark in a program that is intended to help human readers understand what is going on,
+but is ignored by the computer.
+Comments in Python, R, and the Unix shell start with a <code>#</code> character and run to the end of the line;
+comments in SQL start with <code>--</code>,
+and other languages have other conventions.</p>
+
+<p><strong>conditional statement</strong>: <a name="conditional-statement"></a>
+A statement in a program that might or might not be executed
+depending on whether a test is true or false.</p>
+
+<p><strong>conflict</strong>: <a name="conflict"></a>
+A change made by one user of a (version control system)<span class="externalcitation">[#version-control]</span>
+that is incompatible with changes made by other users.
+Helping users (resolve)<span class="externalcitation">[#resolve]</span> conflicts
+is one of version control&#8217;s major tasks.</p>
+
+<p><strong>cross product</strong>: <a name="cross-product"></a>
+A pairing of all elements of one set with all elements of another.</p>
+
+<p><strong>current working directory</strong>: <a name="current-working-directory"></a>
+The directory that <a href="#relative-path">relative paths</a> are calculated from;
+equivalently,
+the place where files referenced by name only are searched for.
+Every <a href="#process">process</a> has a current working directory.
+The current working directory is usually referred to using the shorthand notation <code>.</code> (pronounced &#8220;dot&#8221;).</p>
+
+<p><strong>cursor</strong>: <a name="cursor"></a>
+A pointer into a database that keeps track of outstanding operations.</p>
+
+<p><strong>data type</strong>: <a name="data-type"></a>
+A kind of data value,
+such as <a href="#integer">integer</a> or <a href="#string">character string</a>.</p>
+
+<p><strong>database manager</strong>: <a name="database-manager"></a>
+A program that manages a (relational database)<span class="externalcitation">[#relational-database]</span>.</p>
+
+<p><strong>default parameter value</strong>: <a name="default-parameter-value"></a>
+A value to use for a parameter if nothing is specified explicitly.</p>
+
+<p><strong>defensive programming</strong>: <a name="defensive-programming"></a>
+The practice of writing programs that check their own operation to catch errors as early as possible.</p>
+
+<p><strong>delimiter</strong>: <a name="delimiter"></a>
+A character or characters used to separate individual values,
+such as the commas between columns in a <a href="#csv">CSV</a> file.</p>
+
+<p><strong>disk block</strong>: <a name="disk-block"></a>
+The smallest unit of storage that can be allocated on a computer disk.
+Disk blocks are typically 512 bytes in size.</p>
+
+<p><strong>docstring</strong>: <a name="docstring"></a>
+Short for &#8220;documentation string&#8221;,
+this refers to textual documentation embedded in Python programs.
+Unlike comments,
+docstrings are preserved in the running program
+and can be examined in interactive sessions.</p>
+
+<p><strong>documentation</strong>: <a name="documentation"></a>
+Human-language text written to explain what software does,
+how it works,
+or how to use it.</p>
+
+<p><strong>dotted notation</strong>: <a name="dotted-notation"></a>
+A two-part notation used in many programming languages
+in which <code>thing.component</code> refers to the <code>component</code> belonging to <code>thing</code>.</p>
+
+<p><strong>empty string</strong>: <a name="empty-string"></a>
+A character string containing no characters,
+often thought of as the &#8220;zero&#8221; of text.</p>
+
+<p><strong>encapsulation</strong>: <a name="encapsulation"></a>
+The practice of hiding something&#8217;s implementation details
+so that the rest of a program can worry about <em>what</em> it does
+rather than <em>how</em> it does it.</p>
+
+<p><strong>field</strong> (of a database): <a name="field-database"></a>
+A set of data values of a particular type,
+one for each <a href="#record-database">record</a> in a (table)<span class="externalcitation">[#table-database]</span>.</p>
+
+<p><strong>filename extension</strong>: <a name="filename-extension"></a>
+The portion of a file&#8217;s name that comes after the final &#8220;.&#8221; character.
+By convention this identifies the file&#8217;s type:
+<code>.txt</code> means &#8220;text file&#8221;,
+<code>.png</code> means &#8220;Portable Network Graphics file&#8221;,
+and so on.
+These conventions are not enforced by most operating systems:
+it is perfectly possible to name an MP3 sound file <code>homepage.html</code>.
+Since many applications use filename extensions to identify the <a href="#mime-type">MIME type</a> of the file,
+misnaming files may cause those applications to fail.</p>
+
+<p><strong>filesystem</strong>: <a name="filesystem"></a>
+A set of files, directories, and I/O devices (such as keyboards and screens).
+A filesystem may be spread across many physical devices,
+or many filesystems may be stored on a single physical device;
+the <a href="#operating-system">operating system</a> manages access.</p>
+
+<p><strong>filter</strong>: <a name="filter"></a>
+A program that transforms a stream of data.
+Many Unix command-line tools are written as filters:
+they read data from <a href="#standard-input">standard input</a>,
+process it,
+and write the result to <a href="#standard-output">standard output</a>.</p>
+
+<p><strong>flag</strong>: <a name="command-line-flag"></a>
+A terse way to specify an option or setting to a command-line program.
+By convention Unix applications use a dash followed by a single letter,
+such as <code>-v</code>,
+or two dashes followed by a word,
+such as <code>--verbose</code>,
+while DOS applications use a slash,
+such as <code>/V</code>.
+Depending on the application, a flag may be followed by a single argument, as in <code>-o /tmp/output.txt</code>.</p>
+
+<p><strong>floating point number</strong> (float): <a name="float"></a>
+A number containing a fractional part and an exponent.
+See also: <a href="#integer">integer</a>.</p>
+
+<p><strong>for loop</strong>: <a name="for-loop"></a>
+A loop that is executed once for each value in some kind of set, list, or range.
+See also: <a href="#while-loop">while loop</a>.</p>
+
+<p><strong>foreign key</strong>: <a name="foreign-key"></a>
+One or more values in a (database table)<span class="externalcitation">[#table-database]</span>
+that identify a (records)<span class="externalcitation">[#record-database]</span> in another table.</p>
+
+<p><strong>function composition</strong>: <a name="function-composition"></a>
+The immediate application of one function to the result of another,
+such as <code>f(g(x))</code>.</p>
+
+<p><strong>graphical user interface</strong> (GUI): <a name="gui"></a>
+A graphical user interface,
+usually controlled by using a mouse.
+See also: <a href="#cli">command-line interface</a>.</p>
+
+<p><strong>home directory</strong>: <a name="home-directory"></a>
+The default directory associated with an account on a computer system.
+By convention, all of a user&#8217;s files are stored in or below her home directory.</p>
+
+<p><strong>immutable</strong>: <a name="immutable"></a>
+Unchangeable.
+The value of immutable data cannot be altered after it has been created.
+See also: (mutable)<span class="externalcitation">[#mutable]</span>.</p>
+
+<p><strong>import</strong>: <a name="import"></a>
+To load a library into a program.</p>
+
+<p><strong>in-place operator</strong>: <a name="in-place-operator"></a>
+An operator such as <code>+=</code> that provides a shorthand notation for
+the common case in which the variable being assigned to
+is also an operand on the right hand side of the assignment.
+For example,
+the statement <code>x += 3</code> means the same thing as <code>x = x + 3</code>.</p>
+
+<p><strong>index</strong>: <a name="index"></a>
+A subscript that specifies the location of a single value in a collection,
+such as a single pixel in an image.</p>
+
+<p><strong>infective license</strong>: <a name="infective-license"></a>
+A license such as the <a href="http://opensource.org/licenses/GPL-3.0">GPL</a>
+that compels people who incorporate material into their own work
+to place similar sharing requirements on it.</p>
+
+<p><strong>inner loop</strong>: <a name="inner-loop"></a>
+A loop that is inside another loop.
+See also: (outer loop)<span class="externalcitation">[#outer-loop]</span>.</p>
+
+<p><strong>integer</strong>: <a name="integer"></a>
+A whole number, such as &#8211;12343.
+See also: <a href="#float">floating-point number</a>.</p>
+
+<p><strong>invariant</strong>: <a name="invariant"></a>
+An expression whose value doesn&#8217;t change during the execution of a program,
+typically used in an <a href="#assertion">assertion</a>.
+See also: (precondition)<span class="externalcitation">[#precondition]</span>, (postcondition)<span class="externalcitation">[#postcondition]</span>.</p>
+
+<p><strong>loop body</strong>: <a name="loop-body"></a>
+The statements that are executed inside a loop.</p>
+
+<p><strong>loop variable</strong>: <a name="loop-variable"></a>
+The variable that keeps track of the progress of the loop.</p>
+
+<p><strong>member</strong>: <a name="member"></a>
+A variable contained within an <a href="#object">object</a>.</p>
+
+<p><strong>merge</strong> (a repository): <a name="repository-merge"></a>
+To reconcile two sets of change to a [repository].</p>
+
+<p><strong>method</strong>: <a name="method"></a>
+A function which is tied to a particular (object)<span class="externalcitation">[#object]</span>.
+Each of an object&#8217;s methods typically implements one of the things it can do,
+or one of the questions it can answer.</p>
+
+<p><strong>mutable</strong>: <a name="mutable"></a>
+Changeable.
+The value of mutable data can be updated in place.
+See also: (immutable)<span class="externalcitation">[#immutable]</span>.</p>
+
+<p><strong>notional machine</strong>: <a name="notional-machine"></a>
+An abstraction of a computer used to think about what it can and will do.</p>
+
+<p><strong>object</strong>: <a name="object"></a>
+A particular &#8220;chunk&#8221; of data associated with specific operations called <a href="#method">methods</a>.</p>
+
+<p><strong>orthogonal</strong>: <a name="orthogonal"></a>
+To have meanings or behaviors that are independent of each other.
+If a set of concepts or tools are orthogonal,
+they can be combined in any way.</p>
+
+<p><strong>outer loop</strong>: <a name="outer-loop"></a>
+A loop that contains another loop.
+See also: (inner loop)<span class="externalcitation">[#inner-loop]</span>.</p>
+
+<p><strong>parameter</strong>: <a name="parameter"></a>
+A value passed into a function,
+or a variable named in the functin&#8217;s declaration
+that is used to hold such a value.</p>
+
+<p><strong>parent directory</strong>: <a name="parent-directory"></a>
+The directory that &#8220;contains&#8221; the one in question.
+Every directory in a file system except the <a href="#root-directory">root directory</a> has a parent.
+A directory&#8217;s parent is usually referred to using the shorthand notation <code>..</code> (pronounced &#8220;dot dot&#8221;).</p>
+
+<p><strong>pipe</strong>: <a name="pipe"></a>
+A connection from the output of one program to the input of another.
+When two or more programs are connected in this way, they are called a &#8220;pipeline&#8221;.</p>
+
+<p><strong>pipe and filter</strong>: <a name="pipe-and-filter"></a>
+A model of programming in which <a href="#filter">filters</a> that process <a href="#stream">streams</a> of data
+are connected end-to-end.
+The pipe and filter model is used extensively in the Unix <a href="#shell">shell</a>.</p>
+
+<p><strong>postcondition</strong>: <a name="postcondition"></a>
+A condition that a function (or other block of code) guarantees is true
+once it has finished running.
+Postconditions are often represented using <a href="#assertion">assertions</a>.</p>
+
+<p><strong>precondition</strong>: <a name="precondition"></a>
+A condition that must be true in order for a function (or other block of code) to run correctly.</p>
+
+<p><strong>prepared statement</strong>: <a name="prepared-statement"></a>
+A template for an <a href="#sql">SQL</a> query in which some values can be filled in.</p>
+
+<p><strong>primary key</strong>: <a name="primary-key"></a>
+One or more (fields)<span class="externalcitation">[#field-database]</span> in a (database table)<span class="externalcitation">[#table-database]</span>
+whose values are guaranteed to be unique for each (record)<span class="externalcitation">[#record-database]</span>,
+i.e.,
+whose values uniquely identify the entry.</p>
+
+<p><strong>process</strong>: <a name="process"></a>
+A running instance of a program,
+containing code,
+variable values,
+open files and network connections,
+and so on.
+Processes are the &#8220;actors&#8221; that the <a href="#operating-system">operating system</a> manages;
+it typically runs each process for a few milliseconds at a time
+to give the impression that they are executing simultaneously.</p>
+
+<p><strong>prompt</strong>: <a name="prompt"></a>
+A character or characters display by a <a href="#repl">REPL</a> to show that
+it is waiting for its next command.</p>
+
+<p><strong>query</strong>: <a name="query"></a>
+A database operation that reads values but does not modify anything.
+Queries are expressed in a special-purpose language called (SQL)<span class="externalcitation">[#sql]</span>.</p>
+
+<p><strong>quoting</strong> (in the shell): <a name="shell-quoting"></a>
+Using quotation marks of various kinds to prevent the shell from interpreting special characters.
+For example,
+to pass the string <code>*.txt</code> to a program,
+it is usually necessary to write it as <code>'*.txt'</code> (with single quotes)
+so that the shell will not try to expand the <code>*</code> wildcard.</p>
+
+<p><strong>read-eval-print loop</strong> (REPL): <a name="repl"></a>
+a <a href="#cli">command-line interface</a> that reads a command from the user,
+executes it,
+prints the result,
+and waits for another command.</p>
+
+<p><strong>record</strong> (in a database): <a name="record-database"></a>
+A set of related values making up a single entry in a (database table)<span class="externalcitation">[#table-database]</span>,
+typically shown as a row.
+See also: (field)<span class="externalcitation">[#field-database]</span>.</p>
+
+<p><strong>redirect</strong>: <a name="redirect"></a>
+To send a command&#8217;s output to a file rather than to the screen or another command,
+or equivalently to read a command&#8217;s input from a file.</p>
+
+<p><strong>referential integrity</strong>: <a name="referential-integrity"></a>
+The internal consistency of values in a database.
+If an entry in one table contains a (foreign key)<span class="externalcitation">[#foreign-key]</span>,
+but the corresponding (records)<span class="externalcitation">[#record-database]</span> don&#8217;t exist,
+referential integrity has been violated.</p>
+
+<p><strong>regression</strong>: <a name="regression"></a>
+To re-introduce a bug that was once fixed.</p>
+
+<p><strong>regular expressions</strong> (RE): <a name="regular-expression"></a>
+A pattern that specifies a set of character strings.
+REs are most often used to find sequences of characters in strings.</p>
+
+<p><strong>relational database</strong>: <a name="relational-database"></a>
+A collection of data organized into (tables)<span class="externalcitation">[#table-database]</span>.</p>
+
+<p><strong>relative path</strong>: <a name="relative-path"></a>
+A <a href="#path">path</a> that specifies the location of a file or directory
+with respect to the <a href="#current-working-directory">current working directory</a>.
+Any path that does not begin with a separator character (&#8220;/&#8221; or &quot;&quot;) is a relative path.
+See also: <a href="#absolute-path">absolute path</a>.</p>
+
+<p><strong>remote repository</strong>: <a name="repository-remote"></a>
+A version control <a href="#repository">repository</a> other than the current one
+that the current one is somehow connected to or mirroring.</p>
+
+<p><strong>repository</strong>: <a name="repository"></a>
+A central storage area where a (version control)<span class="externalcitation">[#version-control]</span> system
+stores old (revisions)<span class="externalcitation">[#revision]</span> of files
+and information about who changed what, when.</p>
+
+<p><strong>resolve</strong>: <a name="resolve"></a>
+To eliminate the (conflicts)<span class="externalcitation">[#conflict]</span> between two or more incompatible changes to a file or set of files
+being managed by a (version control)<span class="externalcitation">[#version-control]</span> system.</p>
+
+<p><strong>return statement</strong>: <a name="return-statement"></a>
+A statement that causes a function to stop executing and return a value to its caller immediately.</p>
+
+<p><strong>revision</strong>: <a name="revision"></a>
+A recorded state of a <a href="#version-control">version control</a> <a href="#repository">repository</a>.</p>
+
+<p><strong>RGB</strong> (red-green-blue): <a name="rgb"></a>
+An <a href="#additive-color-model">additive model</a>
+that represents colors as combinations of red, green, and blue.
+Each color&#8217;s value is typically in the range 0..255
+(i.e., a one-byte integer).</p>
+
+<p><strong>root directory</strong>: <a name="root-directory"></a>
+The top-most directory in a <a href="#filesystem">filesystem</a>.
+Its name is &#8220;/&#8221; on Unix (including Linux and Mac OS X) and &quot;&quot; on Microsoft Windows.</p>
+
+<p><strong>sentinel value</strong>: <a name="sentinel-value"></a>
+A value in a collection that has a special meaning,
+such as 999 to mean &#8220;age unknown&#8221;.</p>
+
+<p><strong>sequence</strong>: <a name="sequence"></a>
+An ordered collection of values
+whose elements can be specified with a single integer index,
+such as a vector.</p>
+
+<p><strong>shape</strong> (of an array): <a name="shape"></a>
+An array&#8217;s dimensions, represented as a vector.
+For example, a 5&times;3 array&#8217;s shape is <code>(5,3)</code>.</p>
+
+<p><strong>shell</strong>: <a name="shell"></a>
+A <a href="#cli">command-line interface</a>
+such as Bash (the Bourne-Again Shell)
+or the Microsoft Windows DOS shell
+that allows a user to interact with the <a href="#operating-system">operating system</a>.</p>
+
+<p><strong>shell script</strong>: <a name="shell-script"></a>
+A set of <a href="#shell">shell</a> commands stored in a file for re-use.
+A shell script is a program executed by the shell;
+the name &#8220;script&#8221; is used for historical reasons.</p>
+
+<p><strong>silent failure</strong>: <a name="silent-failure"></a>
+Failing without producing any warning messages.
+Silent failures are hard to detect and debug.</p>
+
+<p><strong>slice</strong>: <a name="slice"></a>
+A regular subsequence of a larger sequence,
+such as the first five elements or every second element.</p>
+
+<p><strong>SQL</strong> (Structured Query Language): <a name="sql"></a>
+A special-purpose language for describing operations on (relational databases)<span class="externalcitation">[#relational-database]</span>.</p>
+
+<p><strong>SQL injection attack</strong>: <a name="sql-injection-attack"></a>
+An attack on a program in which the user&#8217;s input contains malicious SQL statements.
+If this text is copied directly into an SQL statement,
+it will be executed in the database.</p>
+
+<p><strong>stack frame</strong>: <a name="stack-frame"></a>
+A data structure that provides storage for a function&#8217;s local variables.
+Each time a function is called,
+a new stack frame is created
+and put on the top of the (call stack)<span class="externalcitation">[#call-stack]</span>.
+When the function returns,
+the stack frame is discarded.</p>
+
+<p><strong>standard input</strong> (stdin): <a name="standard-input"></a>
+A process&#8217;s default input stream.
+In interactive command-line applications,
+it is typically connected to the keyboard;;
+in a <a href="#pipe">pipe</a>,
+it receives data from the <a href="#standard-output">standard output</a> of the preceding process.</p>
+
+<p><strong>standard output</strong> (stdout): <a name="standard-output"></a>
+A process&#8217;s default output stream.
+In interactive command-line applications,
+data sent to standard output is displayed on the screen;
+in a <a href="#pipe">pipe</a>,
+it is passed to the <a href="#standard-input">standard input</a> of the next process.</p>
+
+<p><strong>stride</strong>: <a name="stride"></a>
+The offset between successive elements of a <a href="#slice">slice</a>.</p>
+
+<p><strong>string</strong>: <a name="string"></a>
+Short for &#8220;character string&#8221;,
+a <a href="#sequence">sequence</a> of zero or more characters.</p>
+
+<p><strong>sub-directory</strong>: <a name="sub-directory"></a>
+A directory contained within another directory.</p>
+
+<p><strong>tab completion</strong>: <a name="tab-completion"></a>
+A feature provided by many interactive systems in which
+pressing the Tab key triggers automatic completion of the current word or command.</p>
+
+<p><strong>table</strong> (in a database): <a name="table-database"></a>
+A set of data in a <a href="#relational-database">relational database</a>
+organized into a set of <a href="#record-database">records</a>,
+each having the same named <a href="#field-database">fields</a>.</p>
+
+<p><strong>test oracle</strong>: <a name="test-oracle"></a>
+A program, device, data set, or human being
+against which the results of a test can be compared.</p>
+
+<p><strong>test-driven development</strong> (TDD): <a name="test-driven-development"></a>
+The practice of writing unit tests <em>before</em> writing the code they test.</p>
+
+<p><strong>tuple</strong>: <a name="tuple"></a>
+An <a href="#immutable">immutable</a> (sequence)<span class="externalcitation">[#sequence]</span> of values.</p>
+
+<p><strong>variable</strong>: <a name="variable"></a>
+A name in a program that is associated with a value or a collection of values.</p>
+
+<p><strong>version control</strong>: <a name="version-control"></a>
+A tool for managing changes to a set of files.
+Each set of changes creates a new (revision)<span class="externalcitation">[#revision]</span> of the files;
+the version control system allows users to recover old revisions reliably,
+and helps manage conflicting changes made by different users.</p>
+
+<p><strong>wildcard</strong>: <a name="wildcard"></a>
+A character used in pattern matching.
+In the Unix shell,
+the wildcard &#8220;*&#8221; matches zero or more characters,
+so that <code>*.txt</code> matches all files whose names end in <code>.txt</code>.</p>
