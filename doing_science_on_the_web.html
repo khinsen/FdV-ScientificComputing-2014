@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      @import url(http://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+        margin-top: 10px;
+      }
+      h1 { font-size: 2.8em; }
+      h2 { font-size: 2em; }
+      h3 { font-size: 1.6em; }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+
+      pre {
+        border-left: 0.4em solid #d7d7d7;
+        padding: 1em !important;
+      }
+      code {
+        background: transparent !important;
+      }
+      .right {
+        float: right;
+        margin-left: 1em;
+      }
+      .pushdown {
+        margin-top: 12em;
+      }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+       }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle, inverse
+
+# Doing Science on the Web
+
+### Konrad Hinsen
+
+Centre de Biophysique Moléculaire, Orléans, France
+
+Synchrotron SOLEIL, Saint Aubin, France
+
+---
+
+# What the Web offers to scientists
+
+ - Support for collaboration
+
+ - Computation as a service
+
+ - Publication
+
+ - Cloud storage and computing
+
+ - Social networks
+
+---
+
+# Computation as a service
+
+ - Simple principle: you upload some data, enter some parameters, push
+   a button, and download the result.
+
+ - Often provided by research groups to encourage adoption of their
+   methods.
+
+ - Sometimes provided by universities primarily for educational purposes.
+
+ - Sometimes provided by big institutes as a community service.
+
+
+### Examples from my field of research
+
+ - [2Struc](http://2struc.cryst.bbk.ac.uk/): secondary structure
+   of proteins
+
+ - [LIPS](http://tanto.bioengr.uic.edu/lips/): prediction of
+   helix-lipid interfaces
+
+ - [WEBnm@](http://apps.cbu.uib.no/webnma/home):
+   Normal Mode Analysis of proteins
+
+---
+
+# Publication
+
+ - Preprint servers: [arXiv](http://arxiv.org/), [bioRχiv](http://biorxiv.org/)
+
+ - Citable publication of datasets, figures, software, ...:
+   [figshare](http://figshare.com/), [Zenodo](http://zenodo.org/)
+
+ - Publication of executable code with datasets:
+   [Exec&Share](http://execandshare.org/)
+
+
+### Digital Object Identifiers (DOIs)
+
+ - Permanent identifiers for digital publications.
+
+ - Used by all scientific journals for referring to articles.
+
+ - [figshare](http://figshare.com/) and [Zenodo](http://zenodo.org/)
+   assign a DOI to each published dataset.
+
+ - DOI lookup: http://dx.doi.org/
+
+Why not simply use a URL (Uniform Resource Locator)?
+
+ - URLs identify a storage location, DOIs identify the data
+
+ - DOIs are permanent: it is impossible to change the digital object
+   referred to by a DOI, and DOIs are meant to be eternally valid.
+
+---
+
+# Cloud storage and computing
+
+ - Backup storage for data: [Dropbox](http://dropbox.com/),
+   [Google Drive](http://drive.google.com/), ...
+
+ - Scientific computing: [PiCloud](http://www.picloud.com/),
+   [Wakari](https://wakari.io/)
+
+ - Virtual machines and large-scale data storage:
+   [Amazon Elastic Compute Cloud](https://aws.amazon.com/fr/ec2/)
+
+---
+
+# Social networks
+
+ - [Academia.edu](http://www.academia.edu/)
+
+ - [Mendeley](http://www.academia.edu/)
+
+ - [ResearchGate](http://www.researchgate.net/)
+
+ - [Zotero](https://www.zotero.org/)
+
+---
+
+# The risks of Web services
+
+ - A Web service can shut down any time. What will happen to your data?
+
+ - If you upload confidential data, make sure you can trust the
+   service provider.
+
+ - Many computational Web services don't fully disclose the
+   computational techniques they apply.
+
+ - A Web service may produce result A one day and result B the next day.
+
+
+**_Use_** Web services, but don't **_depend_** on them if you can avoid it.
+
+    </textarea>
+    <script src="file:///Users/hinsen/js/remark/remark.min.js" type="text/javascript"></script>
+<!--    <script src="http://gnab.github.com/remark/downloads/remark-0.5.9.min.js" type="text/javascript"></script> -->
+    <script type="text/javascript">
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
