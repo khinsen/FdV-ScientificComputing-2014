@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css", media="screen">
+      @import url(http://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+        margin-top: 10px;
+      }
+      h1 { font-size: 3.5em; }
+      h2 { font-size: 3em; }
+      h3 { font-size: 1.6em; }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+
+      pre {
+        border-left: 0.4em solid #d7d7d7;
+        padding: 1em !important;
+      }
+      code {
+        background: transparent !important;
+      }
+      .right {
+        float: right;
+        margin-left: 1em;
+      }
+      .pushdown {
+        margin-top: 12em;
+      }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+       }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle, inverse
+
+# Using Git in collaboration
+
+### Konrad Hinsen
+
+Centre de Biophysique Moléculaire, Orléans, France
+
+Synchrotron SOLEIL, Saint Aubin, France
+
+---
+
+# Computer-aided research in collaboration
+
+ - The most important problems are not technical ones, but social
+    ones.
+
+ - No piece of software will solve the social issues.
+
+ - What matters most is to agree on tools and procedures that
+   everybody is comfortable with.
+
+ - There's a tendency to ask the "computer expert" in the group to
+   pick the right tools and help the others to use them.
+
+ - If you are that "computer expert", keep in mind that your preferred
+   tools and procedures may be too sophisticated for the others.
+
+ - On the other hand, limiting the group to the methods that everybody
+   already knows is often a bad choice as well.  You need some minimal
+   standards, which must include version control.
+
+---
+
+# Branches in version control
+
+Basic use of version control creates a linear chain of versions,
+representing the progress of the work over time:
+
+![Linear chain of versions](./images/git-when-revisions-updated.svg)
+
+That's usually all you ever need for personal work. When working
+in a team, _branches_ are inevitable:
+
+![Branches](./images/git-intro-to-branching.svg)
+
+
+---
+
+# Branching and merging
+
+Branches come into existence when different people work in
+parallel. Moreover, a single researcher may wish to create multiple
+branches for better organizing his/her work.
+
+Most often, branches represent a temporary divergence of a shared lab
+notebook, and the ultimate goal is to _merge_ these branches into a
+single concensus version.
+
+![Branches](./images/git-merged-branches.svg)
+
+Merging cannot be a fully automatic step, because the two
+branches to be merged can contain conflicting information.
+In such a case, any version control system will stop and
+ask the user to resolve the conflict.
+
+In a research project, it is often useful to do merges
+together, in a group meeting.
+
+---
+
+# Branching in Git
+
+The extensive support for managing branching is often cited as
+an advantage of Git over other version control systems. There are
+numerous tutorials on handling branches in Git.
+
+However, most of the Git branching functionality (and the tutorials)
+is great for software development, but of much less interest for
+doing research. In the electronic lab notebook, branches serve
+mainly to permit everyone to work independently.
+
+A Git repository can contain any number of _local_ branches,
+each identified by a name. It can also reference any number
+of branches in repositories stored elsewhere (e.g. on GitHub).
+These are called _remote_ branches and are identified by
+the name of the remote repository and the name of the branch
+inside the remote repository.
+
+---
+
+# Merging in Git
+
+In Git, merging is not a fully symmetric operation:
+
+![Branches](./images/git-merge-b-into-a.svg)
+
+<hr>
+
+![Branches](./images/git-merge-a-into-b.svg)
+
+The only difference is the name of the surviving branch.
+
+---
+
+# The shared electronic lab notebook
+
+A lab notebook for a team of N scientists needs at least N+1 branches:
+
+ - One branch for each scientist's personal work.
+
+ - One branch containing a concensus version.
+
+The concensus version should be managed by very few people. It is
+updated by merging in changes from everybody. This is best done during
+a group meeting.
+
+![Workflot](./images/git-lab-notebook-workflow.svg)
+
+---
+
+# Repositories and branches
+
+### The official repository
+
+ - Contains only the concensus branch.
+ - Readable by everyone in the group.
+ - Write access limited to a few people.
+ - For Open Science, hosted on a public site (GitHub, ...)
+
+### Each scientist's personal repository
+
+ - Has a local copy of the concensus branch.
+ - Has the scientist's personal branch.
+ - Is located on the scientist's personal computer.
+
+### Each scientist's public repository
+
+ - Contains a copy of the personal repository.
+ - Readable by everyone, write access limited to its owner.
+ - Serves as a backup.
+ - Permits everyone to see everyone else's work.
+
+---
+
+# Research workflow
+
+### Individual work
+
+ - Each scientist works in his/her personal repository.
+ - Changes are committed frequently.
+ - Commits are pushed to the public repository as soon as possible.
+
+### Group meeting
+
+ - Changes from each scientist's public repository are merged
+   into the concensus branch in the official repository.
+ - Conflicts are resolved together.
+
+### Right after the group meeting
+
+ - Each scientist merges the concensus branch from the official repository
+   into his/her personal branch in the personal repository.
+ - Each scientist pushes changes from his/her personal repository
+   to his/her public repository.
+
+---
+
+# Practice
+
+For learning and practicing basic branch handling in Git,
+please continue the session "Version Control with Git"
+on [page 19](./git_introduction.html#19).
+
+    </textarea>
+<!--    <script src="file:///Users/hinsen/js/remark/remark.min.js" type="text/javascript"></script> -->
+    <script src="http://gnab.github.com/remark/downloads/remark-0.5.9.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
