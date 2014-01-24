@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css", media="screen">
+      @import url(http://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+        margin-top: 10px;
+      }
+      h1 { font-size: 3.5em; }
+      h2 { font-size: 3em; }
+      h3 { font-size: 1.6em; }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+
+      pre {
+        border-left: 0.4em solid #d7d7d7;
+        padding: 1em !important;
+      }
+      code {
+        background: transparent !important;
+      }
+      .right {
+        float: right;
+        margin-left: 1em;
+      }
+      .pushdown {
+        margin-top: 12em;
+      }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+       }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle, inverse
+
+# Reproducible workflows
+
+### Konrad Hinsen
+
+Centre de Biophysique Moléculaire, Orléans, France
+
+Synchrotron SOLEIL, Saint Aubin, France
+
+---
+
+# Reproducibility in science
+
+ - One of the ideals of science: any competent scientist who follows
+   the same steps as you do should make the same observations.
+
+ - Reality is a bit different: there are uncontrolled conditions in
+   experiments that cannot be documented and reproduced.
+
+ - In computational work, reproducibility should be perfect, because
+   the computer is deterministic. Just record everything.
+
+ - In practice, computational science is _less_ reproducible than
+   most experiments.
+
+ - The problem: recording _everything_ is very difficult:
+
+   - all the input data: local files, database downloads, ...
+   - all the software, including OS, compilers, ...
+   - **_all input you provide to your computer interactively_**
+
+---
+
+# Adopt a best-effort approach
+
+Making your work 100% reproducible for eternity is not a realistic
+goals right now. But you can probablt do better than what you are
+doing now.
+
+### Reproducing your own work on your own computer
+
+Goals:
+
+ - know exactly how every figure in your thesis/paper was produced:
+   from which data, using which computational steps
+ - if any dataset or program changes, update everything that depends
+   on it automatically
+
+This is the topic of today's session.
+
+### Keep track of what you do
+
+ - Use version control for all your research.
+ - Write down the versions of all software that you use.
+ - Prefer open-source software to proprietary packages.
+ - Get the papers that describe the computational methods you use.
+
+---
+
+# Workflow management
+
+### Scripting
+
+A simple approach for workflows that do not take much time: write a script
+in your favorite language that does _all_ the computations.
+
+### Command-line workflow managers
+
+ - [Make](http://www.gnu.org/software/make/manual/):
+   The oldest and most widely used one,
+   originally designed for software build processes.
+   A bit messy, just like git.
+
+ - [Drake](http://www.gnu.org/software/make/manual/):
+   A recent development specifically for data workflows.
+   Not quite ready for serious use in my opinion.
+
+### Graphical workflow managers
+
+ - [Galaxy](http://galaxyproject.org/)
+
+ - [Kepler](http://kepler-project.org/)
+
+ - [Taverna](http://www.taverna.org.uk/)
+
+ - [VisTrails](http://www.vistrails.org/index.php/Main_Page)
+
+---
+
+# The Unix command line toolkit
+
+ - Lots of programs with cryptic names and cryptic parameters,
+   optimized for rapid typing.
+
+ - Each tool does one task and does it well.
+
+ - Designed to work together.
+
+ - Most tools work with text files or text streams.
+
+ - The output of one tool can be used as the input of another one
+   without creating an intermediate file.
+
+ - It’s easy to write a special-purpose tool that integrates with the
+   standard tools.
+
+Unix is a family of operating systems that was created in the
+1970s. It includes Linux and MacOS X.
+
+The Git for Windows installation contains most of these tools as well
+
+---
+
+# Getting started
+
+ - `man <command>` shows you the manual for a command
+
+ - `apropos <keyword>` lists commands whose manual contains the keyword
+
+ - Start by looking at `ls`, `cd`, `cp`, `rm`, `file`, `od`, `cat`
+
+Rather than list commands here, I will switch to live demonstrations!
+
+---
+
+# Pipelines
+
+Chain of commands in which the output of each command is fed into the
+next one as input.
+
+Examples:
+
+ - `ls -l | more`
+
+ - `grep '^ATOM.*[[:space:]]CA[[:space:]]' 3KYH.pdb | wc -l`
+
+ - `cat <file> | tr ' ' '\r' | sort | uniq`
+
+---
+
+# I/O redirection
+
+Output redirection: write to a file instead of the terminal (more
+precisely: “standard output”)
+
+Example:
+
+    ls -1R > all_my_files
+
+Input redirection: read from a file instead of the terminal (more
+precisely: “standard input”)
+
+Example:
+
+    tr ' ' '\r' < <file> | sort | uniq
+
+---
+
+# Regular expressions
+
+ - search patterns for text
+
+ - used by `grep`, `awk`, and by many text editors
+
+ - very powerful, rather cryptic: takes time to master
+
+ - check out [this tutorial](http://www.regular-expressions.info/)
+
+Examples:
+
+ - `books?` matches `book` and `books`
+
+ - `gr[ae]y` matches `gray` and `grey`
+
+ - `\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b` matches any valid e-mail address
+
+The last example shows how complex regular expressions can beome.
+
+---
+
+# Getting started with `make`
+
+There are many `make` tutorials written for software developers.
+Google `make tutorial` will give you a large choice.
+[This one](http://www.linuxforu.com/2012/06/gnu-make-in-detail-for-beginners/)
+is a reasonable start for our purposes.
+
+The [GNU make
+manual](https://www.gnu.org/software/make/manual/html_node/index.html)
+tells you everything you ever wanted to know about `make`, plus a lot
+more.
+
+## Concepts and jargon
+
+**Makefile**: a file defining a workflow. Contains a sequence of _rules_.
+
+**Rule**: Defines how to make a _target_ given its _prerequisites_
+          by applying _recipes_.
+
+**Target**: the result of a step in the workflow. This can be the name of
+            a file that will be produced, or some arbitrary label.
+
+**Prerequisite**: targets that need to be made before the current rule
+                  can be applied.
+
+**Recipe**: a shell command that can contain _special variables_.
+
+---
+
+# Rules
+
+A rule has the form:
+
+    target ... : prerequisites ...
+            recipe
+            ...
+            ...
+
+**Every recipe line must start with a tab character!**
+
+_Example:_
+
+    overview.html:
+            wget http://rawgithub.com/khinsen/FdV-ScientificComputing-2014/master/overview.html
+
+This rule creates the file `overview.html` by downloading it from the
+GitHub repository for this cours.
+
+_Example:_
+
+    slide_count: overview.html
+            grep -c ^\\-\\-\\- overview.html | dc -e '? 1 + p' > slide_count
+
+This rule counts the number of slides in `overview.html`.
+
+---
+
+# Special variables
+
+On the last slide, the recipes repeated the filenames given as targets or
+prerequisites. This can easily lead to mistakes (chaging the name in one place
+but not in the other), and it prevents generic rules (next slide).
+
+This is why `make` proposes its _special variables_, which stand for
+filenames or parts of them:
+
+ - `$@` full name of the current target
+ - `$<` name of the first dependency
+ - `$^` names of all dependencies, separated by spaces
+ - `$?` the dependencies that are newer than the target
+
+Our examples can be rewritten as
+
+    overview.html:
+            wget http://rawgithub.com/khinsen/FdV-ScientificComputing-2014/master/$@
+
+    slide_count: overview.html
+            grep -c ^\\-\\-\\- $< | dc -e '? 1 + p' > $@
+
+---
+
+# Patterns
+
+It is possible to define rules for categories of targets using
+_patterns_. A pattern contains a single `%` symbol that stands
+for any text string.
+
+_Example_:
+
+    %.slide_count: %.html
+            grep -c ^\\-\\-\\- $< | dc -e '? 1 + p' > $@
+
+This rule says that any target whose name ends in 
+`.slide_count` can be made from a file with the same name
+but extension `.html` using the given recipe.
+
+Obviously, patterns _require_ special variables. There is one more
+of those:
+
+ - `$*` the text that corresponds to `%` in the target
+
+---
+
+# Today's exercice problem
+
+**Goal**: for a given PDB code, check if the crystal structure
+lacks any residues.
+
+**Approach**:
+
+ - download the PDB structure file
+ - download the corresponding FASTA file containing the sequence
+ - count how often each residue type occurs in the structure
+ - count how often each residue type occurs in the sequence
+ - compare the counts to see if anything is missing in the structure
+
+Write a `Makefile` that provides these five steps, and lets you
+run any of them individually.
+
+Use whatever tools you know/like in the recipes, including whatever
+your favorite programming language is.
+
+Test your methods using one structure that is complete (e.g. 193L)
+and one structure that isn't (e.g. 3KYH).
+
+**Bonus version**: if this is too easy for you, try to do it
+using only standard command-line tools from the Unix world.
+
+    </textarea>
+<!--    <script src="file:///Users/hinsen/js/remark/remark.min.js" type="text/javascript"></script> -->
+    <script src="http://gnab.github.com/remark/downloads/remark-0.5.9.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
