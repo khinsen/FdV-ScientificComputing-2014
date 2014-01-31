@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css", media="screen">
+      @import url(http://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+        margin-top: 10px;
+      }
+      h1 { font-size: 2.8em; }
+      h2 { font-size: 2em; }
+      h3 { font-size: 1.6em; }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+
+      pre {
+        border-left: 0.4em solid #d7d7d7;
+        padding: 1em !important;
+      }
+      code {
+        background: transparent !important;
+      }
+      .right {
+        float: right;
+        margin-left: 1em;
+      }
+      .pushdown {
+        margin-top: 12em;
+      }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+       }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle, inverse
+
+# Publishing computer-aided research
+
+### Konrad Hinsen
+
+Centre de Biophysique Moléculaire, Orléans, France
+
+Synchrotron SOLEIL, Saint Aubin, France
+
+---
+
+# Publishing is an important part of doing research
+
+ - Publications constitute the scientific record of studies and their results
+
+ - A publication must provide enough detail for replication of the study
+
+# Publishing is important for a scientist's career
+
+ - "Publish or perish"
+
+ - Bibliometry as a substitute for evaluating quality
+
+# Two distinct goals create conflicts of interest
+
+ - Advancing science requires detailed and accurate publications
+   of innovative studies.
+
+ - Advancing a career in science requires a large number of
+   publications that catch interest.
+
+ - Peer review is supposed to ensure that scientists work for
+   science and not just for their careers.
+
+With the increase of publication output and specialization, peer review
+works less and less well - but that's not today's topic.
+
+---
+
+# What do we publish (ideallly)?
+
+Experimental studies:
+
+ - the setup of the experiment, the experimental protocol
+ - all the results of all observations
+ - data analysis protocols
+ - processed data
+ - an interpretation
+
+Theoretical studies:
+
+ - the theoretical model(s)
+ - assumptions and approximations
+ - mathematical and computational procedures
+ - the results of interest to the authors
+ - an interpretation
+
+No need to publish "all results" for theoretical work:
+
+ - Anyone can do computations starting from the same models, assumptions,
+   and approximations using the described procedures. There is no
+   "experimental error", nor any "uncontrolled parameters".
+ - An infinite number of results can be obtained from any given model.
+
+---
+
+# Computation and automation have changed the game
+
+Experiments:
+
+ - Automated recording of observations can create huge amounts of data,
+   too much for publication in a paper.
+
+ - Data analysis protocols take the form of computer programs.
+   Often no other precise and complete formulation exists.
+
+ - Papers no longer contain all observations, and only a summary
+   of the data analysis protocols.
+   
+Theoretical work:
+
+ - Models and computational procedures often exist only in the form
+   of computer programs.
+
+ - Papers provide only summaries of models, assumptions, approximations,
+   and procedures, making it impossible for their readers to do their
+   own computations.
+
+
+Computing and automation have led to scientific papers becoming less
+and less complete, because the publishing technique is no longer
+adequate. This has led to serious mistakes in publications (see this
+[Nature news story](http://www.nature.com/news/2010/101013/full/467775a.html)),
+and probably also to increased fraud.
+
+**Computer-aided research requires publishing _all the software_
+and _all observed data_ in electronic form.**
+
+---
+
+# Why publish software and data?
+
+ - Moral obligation for any good citizen of the scientific community.
+
+ - For your career: bibliometry starts taking software and data
+   into account.
+
+ - A [recent study](http://dx.doi.org/10.7717/peerj.175) claims that
+   publishing the data will lead to more citations of your papers.
+
+ - Journals are starting to require data publication with article
+   submissions. Software publication will likely follow.
+
+# Where?
+
+ - Supplementary material for an article.
+
+ - Data repositories: [figshare](http://figshare.com/),
+   [Zenodo](http://zenodo.org/), plus domain-specific
+   or institution-specific sites
+
+ - Version-control hosting sites: [GitHub](http://github.com),
+   [Bitbucket](http://bitbucket.org/), plus institution-specific
+   sites such as [Sourcesup](http://sourcesup.renater.fr/) in France.
+
+ - For large datasets, [Academic Torrents](http://www.academictorrents.com/)
+
+# What?
+
+ - At the very least, the files used in your work: software source
+   code, data files, workflows.
+
+ - Better: files that are easy to understand and use by others.
+   This requires thinking about publication _before_ doing
+   the research.
+
+---
+
+# In the ideal world...
+
+... there would be a file format for storing, sharing, and publishing
+_computations_, i.e. combinations of programs and datasets, with all
+the dependency information of a workflow.
+
+_Self-advertisement:_ this happens to be a [research
+project](http://activepapers.org/) that I am working on.
+
+
+## In the real world...
+
+... we have to do the best we can with the tools we have. Let's look
+at some of them.
+
+---
+
+# IPython notebook
+
+A notebook is a mixture of program code, results, and documentation.
+It is a good medium to explain computations and their results.
+
+A notebook can also contain short datasets, e.g. from experiments,
+expressed as Python data structures.
+
+More information [on the IPython Web site](http://ipython.org/notebook.html)
+
+The IPython notebook was initially written for the Python language,
+but support for other languages is being added. Working right now:
+[Ruby](http://www.ruby-lang.org/) and [Julia](http://julialang.org/).
+
+An IPython notebook is a plain text file that can be managed
+with version control.
+
+Similar approaches:
+
+ - [knitr](http://yihui.name/knitr/) for R
+ - [Org-mode/Babel](http://orgmode.org/worg/org-contrib/babel/index.html)
+   for Emacs users
+ - [Sage notebooks](http://www.sagenb.org/)
+ - [Mathematica notebooks](http://reference.wolfram.com/mathematica/tutorial/NotebooksAsDocuments.html)
+
+---
+
+# Literate programming
+
+Combination of text and program code, but no live computation nor
+any results embedded in the document. Usually no maths either.
+
+Notebooks are much better for "telling a story" about a computational
+study, they are closer to a paper. Literate programming tools
+provide one features that notebooks don't have: the possibility
+to describe multi-file software libraries.
+
+Some popular tools (there are many more):
+
+ - [noweb](http://www.cs.tufts.edu/~nr/noweb/) is a popular
+   literate programming tool
+
+ - [pyWeb](http://pywebtool.sourceforge.net/) is a more modern
+   alternative
+
+ - [Leo](http://leoeditor.com/) is an editor for literate programs
+
+---
+
+# What's still missing?
+
+ - Literate programs combine software with explanations.
+
+ - Notebooks add results, and graphics.
+
+ - The missing piece is _data_.
+
+ - Small and simply structured datasets can be integrated
+   into a notebook.
+
+ - Big or structured datasets need special file formats
+   and separate storage.
+
+ - The best you can do right now is bundle up everything
+   in a zip file.
+
+---
+
+# A look into the future
+
+ - Scientific publishers are experimenting with new publication
+   technologies, integrating multimedia content, interactive exploration
+   of data, etc.
+
+ - On-line executable computations as companion sites to articles
+   are proposed by [Exec&Share](http://execandshare.org).
+   Elsevier is testing a similar approach called
+   [Collage](http://collage.elsevier.com/).
+
+ - Scientific cloud hosting sites such as [Wakari](http://wakari.io)
+   permit the publication of IPython notebooks together with
+   support libraries and datasets, letting anyone explore
+   your results.
+
+ - [ActivePapers](http://www.activepapers.org/) permits the bundling
+   of code and datasets into publishable bundles.
+
+It is safe to assume that the publication of scientific computation
+will be very different a few years from now.
+
+
+    </textarea>
+<!--    <script src="file:///Users/hinsen/js/remark/remark.min.js" type="text/javascript"></script> -->
+    <script src="http://gnab.github.com/remark/downloads/remark-0.5.9.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
